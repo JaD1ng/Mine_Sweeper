@@ -30,19 +30,19 @@ public class MineGame extends JFrame implements ActionListener {
         add(mineArea, BorderLayout.CENTER); // 边框布局
         bar = new JMenuBar();
         fileMenu1 = new JMenu("游戏");
-        junior = new JMenuItem("junior");
-        medium = new JMenuItem("medium");
-        senior = new JMenuItem("senior");
-        custom = new JMenuItem("custom");
-        record = new JMenuItem("record");
+        junior = new JMenuItem("初级");
+        medium = new JMenuItem("中级");
+        senior = new JMenuItem("高级");
+        custom = new JMenuItem("自定义");
+        record = new JMenuItem("扫雷榜");
         fileMenu1.add(junior);
         fileMenu1.add(medium);
         fileMenu1.add(senior);
         fileMenu1.add(custom);
         fileMenu1.add(record);
         fileMenu2 = new JMenu("帮助");
-        introduction = new JMenuItem("introduction");
-        gameplay = new JMenuItem("gameplay");
+        introduction = new JMenuItem("介绍");
+        gameplay = new JMenuItem("玩法");
         fileMenu2.add(introduction);
         fileMenu2.add(gameplay);
         bar.add(fileMenu1);
@@ -56,9 +56,9 @@ public class MineGame extends JFrame implements ActionListener {
         introduction.addActionListener(this);
         gameplay.addActionListener(this);
         hashtable = new Hashtable();
-        hashtable.put("junior", "junior#" + 999 + "#匿名");
-        hashtable.put("medium", "medium#" + 999 + "#匿名");
-        hashtable.put("senior", "senior#" + 999 + "#匿名");
+        hashtable.put("初级", "初级#" + 999 + "#匿名");
+        hashtable.put("中级", "中级#" + 999 + "#匿名");
+        hashtable.put("高级", "高级#" + 999 + "#匿名");
         if (!Record.exists()) {
             try {
                 FileOutputStream out = new FileOutputStream(Record);
@@ -91,7 +91,7 @@ public class MineGame extends JFrame implements ActionListener {
         }
         if (e.getSource() == custom) {
             set = new JDialog();
-            set.setTitle("custom难度");
+            set.setTitle("自定义难度");
             set.setBounds(300, 100, 300, 130);
             set.setResizable(false);//设置大小不可变
             set.setModal(true);//设置为对话框模式
@@ -112,9 +112,9 @@ public class MineGame extends JFrame implements ActionListener {
             column.setText("16");
             mine = new JTextField();
             mine.setText("40");
-            confirm = new JButton("confirm");
+            confirm = new JButton("确认");
             confirm.addActionListener(this);
-            cancel = new JButton("cancel");
+            cancel = new JButton("取消");
             cancel.addActionListener(this);
             panel1.add(label1);
             panel1.add(row);
@@ -162,7 +162,7 @@ public class MineGame extends JFrame implements ActionListener {
         }
         if (e.getSource() == introduction) {
             introduce = new JDialog();
-            introduce.setTitle("扫雷introduction");
+            introduce.setTitle("扫雷介绍");
             introduce.setBounds(300, 100, 300, 300);
             introduce.setResizable(false);
             introduce.setModal(true);
@@ -179,7 +179,7 @@ public class MineGame extends JFrame implements ActionListener {
         }
         if (e.getSource() == gameplay) {
             play = new JDialog();
-            play.setTitle("游戏gameplay");
+            play.setTitle("游戏玩法");
             play.setBounds(300, 100, 300, 300);
             play.setResizable(false);
             play.setModal(true);
