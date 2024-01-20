@@ -1,2 +1,86 @@
-public class Record {
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
+import java.util.Hashtable;
+import java.util.StringTokenizer;
+
+public class Record extends JDialog implements ActionListener {
+    int time = 0;
+    String grade = null;
+    String key = null;
+    String message = null;
+    JTextField textName;
+    JLabel label = null;
+    JButton confirm, cancel;
+
+    public Record() {
+        setTitle("记录你的成绩");
+        setBounds(300, 300, 240, 160);
+        setResizable(false); // 设置用户是否可以调整大小
+        setModal(true); // 设置窗口模式为对话框模式
+        confirm = new JButton("确定");
+        cancel = new JButton("取消");
+        textName = new JTextField(8);
+        textName.setText("匿名");
+        confirm.addActionListener(this);
+        cancel.addActionListener(this);
+        setLayout(new GridLayout(2, 1));
+        label = new JLabel("您现在是...高手,输入您的大名上榜");
+        add(label);
+        JPanel p = new JPanel();
+        p.add(textName);
+        p.add(confirm);
+        p.add(cancel);
+        add(p);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+        label.setText("恭喜通过" + grade + "难度,输入您的名称");
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == confirm) {
+            message = grade + "#" + time + "#" + " " + textName.getText();
+            key = grade;
+            writeRecord(key, message);
+            setVisible(false);
+        }
+        if (e.getSource() == cancel) {
+            setVisible(false);
+        }
+    }
+
+    public void writeRecord(String key, String message) {
+        File f = new File("Record.txt");
+        try {
+            // 取出原有记录，更新记录
+            FileInputStream in = new FileInputStream(f);
+            ObjectInputStream object_in = new ObjectInputStream(in);
+            Hashtable hashtable = (Hashtable) object_in.readObject();
+            object_in.close();
+            in.close();
+            String temp = (String) hashtable.get(key);
+            StringTokenizer fenxi = new StringTokenizer(temp, "#"); // 按分隔符分隔成一个个标记
+            fenxi.nextToken(); // 返回下一个标记
+            int n = Integer.parseInt(fenxi.nextToken());
+            if (time < n) {
+                hashtable.put(key, message);
+                FileOutputStream out = new FileOutputStream(f);
+                ObjectOutputStream object_out = new ObjectOutputStream(out);
+                object_out.writeObject(hashtable);
+                object_out.close();
+                out.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }
