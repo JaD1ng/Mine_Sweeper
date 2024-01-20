@@ -24,35 +24,35 @@ public class BlockView extends JPanel {
         } else {
             int n = block.getAroundMineNumber();
             if (n == 1) {
-                icon1 = new ImageIcon("1.jpg");
+                icon1 = new ImageIcon("img/1.jpg");
                 blockNameOrIcon.setIcon(icon1);
             }
             if (n == 2) {
-                icon2 = new ImageIcon("2.jpg");
+                icon2 = new ImageIcon("img/2.jpg");
                 blockNameOrIcon.setIcon(icon2);
             }
             if (n == 3) {
-                icon3 = new ImageIcon("3.jpg");
+                icon3 = new ImageIcon("img/3.jpg");
                 blockNameOrIcon.setIcon(icon3);
             }
             if (n == 4) {
-                icon4 = new ImageIcon("4.jpg");
+                icon4 = new ImageIcon("img/4.jpg");
                 blockNameOrIcon.setIcon(icon4);
             }
             if (n == 5) {
-                icon5 = new ImageIcon("5.jpg");
+                icon5 = new ImageIcon("img/5.jpg");
                 blockNameOrIcon.setIcon(icon5);
             }
             if (n == 6) {
-                icon6 = new ImageIcon("6.jpg");
+                icon6 = new ImageIcon("img/6.jpg");
                 blockNameOrIcon.setIcon(icon6);
             }
             if (n == 7) {
-                icon7 = new ImageIcon("7.jpg");
+                icon7 = new ImageIcon("img/7.jpg");
                 blockNameOrIcon.setIcon(icon7);
             }
             if (n == 8) {
-                icon8 = new ImageIcon("8.jpg");
+                icon8 = new ImageIcon("img/8.jpg");
                 blockNameOrIcon.setIcon(icon8);
             } else
                 blockNameOrIcon.setText(" ");

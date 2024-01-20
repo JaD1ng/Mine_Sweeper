@@ -6,7 +6,7 @@ public class LayMines {
     ImageIcon mineIcon;
 
     LayMines() {
-        mineIcon = new ImageIcon("mine.gif");
+        mineIcon = new ImageIcon("img/mine.gif");
     }
 
     public void layMinesForBlock(Block[][] block, int mineCount, int m, int n) {
