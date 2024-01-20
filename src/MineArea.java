@@ -107,6 +107,70 @@ public class MineArea extends JPanel implements ActionListener, MouseListener {
         this.grade = grade;
     }
 
+    public void show(int m, int n) {
+        if (block[m][n].getAroundMineNumber() > 0 && block[m][n].getIsOpen() == false) {
+            blockView[m][n].seeBlockNameOrIcon();
+            block[m][n].setIsOpen(true);
+            return;
+        } else if (block[m][n].getAroundMineNumber() == 0 && block[m][n].getIsOpen() == false) {
+            blockView[m][n].seeBlockNameOrIcon();
+            block[m][n].setIsOpen(true);
+            for (int k = Math.max(m - 1, 0); k <= Math.min(m + 1, row - 1); k++) {
+                for (int t = Math.max(n - 1, 0); t <= Math.min(n + 1, colum - 1); t++)
+                    show(k, t);
+            }
+        }
+    }
+
+    public void mousePressed(MouseEvent e) {
+        JButton source = (JButton) e.getSource();
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < colum; j++) {
+                if (e.getModifiers() == InputEvent.BUTTON3_MASK && source == blockView[i][j].getBlockCover()) {
+                    if (block[i][j].getIsMark()) {
+                        source.setIcon(null);
+                        block[i][j].setIsMark(false);
+                        markMount = markMount + 1;
+                        showMarkedMineCount.setText("" + markMount);
+                    } else {
+                        source.setIcon(mark);
+                        block[i][j].setIsMark(true);
+                        markMount = markMount - 1;
+                        showMarkedMineCount.setText("" + markMount);
+                    }
+                }
+            }
+        }
+    }
+
+    public void inquireWin() {
+        int number = 0;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < colum; j++) {
+                if (block[i][j].getIsOpen() == false)
+                    number++;
+            }
+        }
+        if (number == mineCount) {
+            time.stop();
+            record = new Record();
+            switch (grade) {
+                case 1:
+                    record.setGrade("初级");
+                    break;
+                case 2:
+                    record.setGrade("中级");
+                    break;
+                case 3:
+                    record.setGrade("高级");
+                    break;
+            }
+            record.setTime(spendTime);
+            record.setVisible(true);
+        }
+
+    }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == restart1) {
             initMineArea(row, colum, mineCount, grade);
@@ -175,70 +239,6 @@ public class MineArea extends JPanel implements ActionListener, MouseListener {
             showTime.setText("" + spendTime);
         }
         inquireWin();
-    }
-
-    public void show(int m, int n) {
-        if (block[m][n].getAroundMineNumber() > 0 && block[m][n].getIsOpened() == false) {
-            blockView[m][n].seeBlockNameOrIcon();
-            block[m][n].setIsOpened(true);
-            return;
-        } else if (block[m][n].getAroundMineNumber() == 0 && block[m][n].getIsOpened() == false) {
-            blockView[m][n].seeBlockNameOrIcon();
-            block[m][n].setIsOpened(true);
-            for (int k = Math.max(m - 1, 0); k <= Math.min(m + 1, row - 1); k++) {
-                for (int t = Math.max(n - 1, 0); t <= Math.min(n + 1, colum - 1); t++)
-                    show(k, t);
-            }
-        }
-    }
-
-    public void mousePressed(MouseEvent e) {
-        JButton source = (JButton) e.getSource();
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < colum; j++) {
-                if (e.getModifiers() == InputEvent.BUTTON3_MASK && source == blockView[i][j].getBlockCover()) {
-                    if (block[i][j].getIsMarked()) {
-                        source.setIcon(null);
-                        block[i][j].setIsMarked(false);
-                        markMount = markMount + 1;
-                        showMarkedMineCount.setText("" + markMount);
-                    } else {
-                        source.setIcon(mark);
-                        block[i][j].setIsMarked(true);
-                        markMount = markMount - 1;
-                        showMarkedMineCount.setText("" + markMount);
-                    }
-                }
-            }
-        }
-    }
-
-    public void inquireWin() {
-        int number = 0;
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < colum; j++) {
-                if (block[i][j].getIsOpened() == false)
-                    number++;
-            }
-        }
-        if (number == mineCount) {
-            time.stop();
-            record = new Record();
-            switch (grade) {
-                case 1:
-                    record.setGrade("初级");
-                    break;
-                case 2:
-                    record.setGrade("中级");
-                    break;
-                case 3:
-                    record.setGrade("高级");
-                    break;
-            }
-            record.setTime(spendTime);
-            record.setVisible(true);
-        }
-
     }
 
     public void mouseReleased(MouseEvent e) {

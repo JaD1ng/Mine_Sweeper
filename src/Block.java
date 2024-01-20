@@ -5,21 +5,21 @@ public class Block {
     int aroundMineNumber; // 周围雷的数目
     ImageIcon mineIcon; // 雷的图标
     boolean isMine = false; // 是否是雷
-    boolean isMarked = false; // 是否被标记
-    boolean isOpened = false; // 是否被挖开
+    boolean isMark = false; // 是否被标记
+    boolean isOpen = false; // 是否被挖开
 
     public Block() {
         super();
     }
 
-    public Block(String name, int aroundMineNumber, ImageIcon mineIcon, boolean isMine, boolean isMarked, boolean isOpened) {
+    public Block(String name, int aroundMineNumber, ImageIcon mineIcon, boolean isMine, boolean isMark, boolean isOpen) {
         super();
         this.name = name;
         this.aroundMineNumber = aroundMineNumber;
         this.mineIcon = mineIcon;
         this.isMine = isMine;
-        this.isMarked = isMarked;
-        this.isOpened = isOpened;
+        this.isMark = isMark;
+        this.isOpen = isOpen;
     }
 
     public void setName(String name) {
@@ -54,24 +54,25 @@ public class Block {
         return isMine;
     }
 
-    public void setIsMarked(boolean m) {
-        isMarked = m;
+    public void setIsMark(boolean m) {
+        isMark = m;
     }
 
-    public boolean getIsMarked() {
-        return isMarked;
+    public boolean getIsMark() {
+        return isMark;
     }
 
-    public void setIsOpened(boolean o) {
-        isOpened = o;
+    public void setIsOpen(boolean p) {
+        isOpen = p;
     }
 
-    public boolean getIsOpened() {
-        return isOpened;
+    public boolean getIsOpen() {
+        return isOpen;
     }
 
+    @Override
     public String toString() {
         return "Block [name=" + name + ", aroundMineNumber=" + aroundMineNumber + ", mineIcon=" + mineIcon + ", isMine="
-                + isMine + ", isMark=" + isMarked + ", isOpen=" + isOpened + "]";
+                + isMine + ", isMark=" + isMark + ", isOpen=" + isOpen + "]";
     }
 }

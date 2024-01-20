@@ -11,8 +11,8 @@ import java.util.Hashtable;
 public class MineGame extends JFrame implements ActionListener {
     JMenuBar bar;
     JMenu fileMenu1, fileMenu2;
-    JMenuItem junior, medium, senior, custom, record;
-    JMenuItem introduction, gameplay;
+    JMenuItem junior, middle, senior, custom, record;
+    JMenuItem introduction, gamePlay;
     MineArea mineArea = null;
     File Record = new File("Record.txt");
     Hashtable hashtable = null;
@@ -31,30 +31,30 @@ public class MineGame extends JFrame implements ActionListener {
         bar = new JMenuBar();
         fileMenu1 = new JMenu("游戏");
         junior = new JMenuItem("初级");
-        medium = new JMenuItem("中级");
+        middle = new JMenuItem("中级");
         senior = new JMenuItem("高级");
         custom = new JMenuItem("自定义");
         record = new JMenuItem("扫雷榜");
         fileMenu1.add(junior);
-        fileMenu1.add(medium);
+        fileMenu1.add(middle);
         fileMenu1.add(senior);
         fileMenu1.add(custom);
         fileMenu1.add(record);
         fileMenu2 = new JMenu("帮助");
         introduction = new JMenuItem("介绍");
-        gameplay = new JMenuItem("玩法");
+        gamePlay = new JMenuItem("玩法");
         fileMenu2.add(introduction);
-        fileMenu2.add(gameplay);
+        fileMenu2.add(gamePlay);
         bar.add(fileMenu1);
         bar.add(fileMenu2);
         setJMenuBar(bar); // 设置窗体的菜单栏
         junior.addActionListener(this);
-        medium.addActionListener(this);
+        middle.addActionListener(this);
         senior.addActionListener(this);
         custom.addActionListener(this);
         record.addActionListener(this);
         introduction.addActionListener(this);
-        gameplay.addActionListener(this);
+        gamePlay.addActionListener(this);
         hashtable = new Hashtable();
         hashtable.put("初级", "初级#" + 999 + "#匿名");
         hashtable.put("中级", "中级#" + 999 + "#匿名");
@@ -81,7 +81,7 @@ public class MineGame extends JFrame implements ActionListener {
             mineArea.initMineArea(9, 9, 10, 1);
             setBounds(300, 100, 270, 350);
         }
-        if (e.getSource() == medium) {
+        if (e.getSource() == middle) {
             mineArea.initMineArea(16, 16, 40, 2);
             setBounds(300, 100, 480, 560);
         }
@@ -177,7 +177,7 @@ public class MineGame extends JFrame implements ActionListener {
             introduce.add(label4);
             introduce.setVisible(true);
         }
-        if (e.getSource() == gameplay) {
+        if (e.getSource() == gamePlay) {
             play = new JDialog();
             play.setTitle("游戏玩法");
             play.setBounds(300, 100, 300, 300);

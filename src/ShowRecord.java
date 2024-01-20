@@ -11,7 +11,7 @@ public class ShowRecord extends JDialog implements ActionListener {
     String name = null;
     Hashtable hashtable = null;
     JButton show, recount;
-    JLabel[] label_junior, label_medium, label_senior;
+    JLabel[] juniorLabel, middleLabel, seniorLabel;
 
     public ShowRecord(JFrame frame, Hashtable h) {
         setTitle("扫雷榜");
@@ -20,37 +20,37 @@ public class ShowRecord extends JDialog implements ActionListener {
         setResizable(false);
         setVisible(false);
         setModal(true);
-        label_junior = new JLabel[3];
-        label_medium = new JLabel[3];
-        label_senior = new JLabel[3];
+        juniorLabel = new JLabel[3];
+        middleLabel = new JLabel[3];
+        seniorLabel = new JLabel[3];
         for (int i = 0; i < 3; i++) {
-            label_junior[i] = new JLabel();
-            label_junior[i].setBorder(null); // 设置无边框
-            label_medium[i] = new JLabel();
-            label_medium[i].setBorder(null);
-            label_senior[i] = new JLabel();
-            label_senior[i].setBorder(null);
+            juniorLabel[i] = new JLabel();
+            juniorLabel[i].setBorder(null); // 设置无边框
+            middleLabel[i] = new JLabel();
+            middleLabel[i].setBorder(null);
+            seniorLabel[i] = new JLabel();
+            seniorLabel[i].setBorder(null);
         }
-        label_junior[0].setText("初级");
-        label_junior[1].setText("" + 999);
-        label_junior[1].setText("匿名");
-        label_medium[0].setText("中级");
-        label_medium[1].setText("" + 999);
-        label_medium[1].setText("匿名");
-        label_senior[0].setText("高级");
-        label_senior[1].setText("" + 999);
-        label_senior[1].setText("匿名");
+        juniorLabel[0].setText("初级");
+        juniorLabel[1].setText("" + 999);
+        juniorLabel[1].setText("匿名");
+        middleLabel[0].setText("中级");
+        middleLabel[1].setText("" + 999);
+        middleLabel[1].setText("匿名");
+        seniorLabel[0].setText("高级");
+        seniorLabel[1].setText("" + 999);
+        seniorLabel[1].setText("匿名");
         JPanel pCenter = new JPanel();
         pCenter.setLayout(new GridLayout(3, 3));
         for (int i = 0; i < 3; i++)
-            pCenter.add(label_junior[i]);
+            pCenter.add(juniorLabel[i]);
         for (int i = 0; i < 3; i++)
-            pCenter.add(label_medium[i]);
+            pCenter.add(middleLabel[i]);
         for (int i = 0; i < 3; i++)
-            pCenter.add(label_senior[i]);
+            pCenter.add(seniorLabel[i]);
         pCenter.setBorder(BorderFactory.createTitledBorder("扫雷榜"));
         show = new JButton("最佳成绩");
-        recount = new JButton("重新记分");
+        recount = new JButton("重新计分");
         show.addActionListener(this);
         recount.addActionListener(this);
         JPanel pSouth = new JPanel();
@@ -70,19 +70,19 @@ public class ShowRecord extends JDialog implements ActionListener {
             in.close();
             String temp = (String) hashtable.get("初级");
             StringTokenizer fenxi = new StringTokenizer(temp, "#");
-            label_junior[0].setText(fenxi.nextToken());
-            label_junior[1].setText(fenxi.nextToken());
-            label_junior[2].setText(fenxi.nextToken());
+            juniorLabel[0].setText(fenxi.nextToken());
+            juniorLabel[1].setText(fenxi.nextToken());
+            juniorLabel[2].setText(fenxi.nextToken());
             temp = (String) hashtable.get("中级");
             fenxi = new StringTokenizer(temp, "#");
-            label_medium[0].setText(fenxi.nextToken());
-            label_medium[1].setText(fenxi.nextToken());
-            label_medium[2].setText(fenxi.nextToken());
+            middleLabel[0].setText(fenxi.nextToken());
+            middleLabel[1].setText(fenxi.nextToken());
+            middleLabel[2].setText(fenxi.nextToken());
             temp = (String) hashtable.get("高级");
             fenxi = new StringTokenizer(temp, "#");
-            label_senior[0].setText(fenxi.nextToken());
-            label_senior[1].setText(fenxi.nextToken());
-            label_senior[2].setText(fenxi.nextToken());
+            seniorLabel[0].setText(fenxi.nextToken());
+            seniorLabel[1].setText(fenxi.nextToken());
+            seniorLabel[2].setText(fenxi.nextToken());
         } catch (Exception e) {
         }
     }
@@ -90,17 +90,17 @@ public class ShowRecord extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == recount) {
             hashtable.put("初级", "初级#" + 999 + "#匿名");
-            label_junior[0].setText("初级");
-            label_junior[1].setText("" + 999);
-            label_junior[2].setText("匿名");
+            juniorLabel[0].setText("初级");
+            juniorLabel[1].setText("" + 999);
+            juniorLabel[2].setText("匿名");
             hashtable.put("中级", "中级#" + 999 + "#匿名");
-            label_medium[0].setText("中级");
-            label_medium[1].setText("" + 999);
-            label_medium[2].setText("匿名");
+            middleLabel[0].setText("中级");
+            middleLabel[1].setText("" + 999);
+            middleLabel[2].setText("匿名");
             hashtable.put("高级", "高级#" + 999 + "#匿名");
-            label_senior[0].setText("高级");
-            label_senior[1].setText("" + 999);
-            label_senior[2].setText("匿名");
+            seniorLabel[0].setText("高级");
+            seniorLabel[1].setText("" + 999);
+            seniorLabel[2].setText("匿名");
             try {
                 FileOutputStream out = new FileOutputStream(file);
                 ObjectOutputStream object_out = new ObjectOutputStream(out);

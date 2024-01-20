@@ -39,7 +39,7 @@ public class Record extends JDialog implements ActionListener {
 
     public void setGrade(String grade) {
         this.grade = grade;
-        label.setText("恭喜通过" + grade + "难度,输入您的名称");
+        label.setText("您现在是" + grade + "高手,输入您的大名上榜");
     }
 
     public void setTime(int time) {

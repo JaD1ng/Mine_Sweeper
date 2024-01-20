@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class LayMines {
@@ -9,15 +8,14 @@ public class LayMines {
         mineIcon = new ImageIcon("img/mine.gif");
     }
 
-    public void layMinesForBlock(Block[][] block, int mineCount, int m, int n) {
+    public void layMinesForBlock(Block block[][], int mineCount, int m, int n) {
         int row = block.length;
         int column = block[0].length;
-        LinkedList<Block> list = new LinkedList<>();
-
-        for (Block[] blocks : block) {
-            list.addAll(Arrays.asList(blocks).subList(0, column));
+        LinkedList<Block> list = new LinkedList<Block>();
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++)
+                list.add(block[i][j]);
         }
-
         while (mineCount > 0) {
             int size = list.size(); // list返回节点的个数
             int randomIndex = (int) (Math.random() * size);
@@ -29,12 +27,11 @@ public class LayMines {
                 mineCount--;
             }
         }
-
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
                 if (block[i][j].getIsMine()) {
-                    block[i][j].setIsOpened(false);
-                    block[i][j].setIsMarked(false);
+                    block[i][j].setIsOpen(false);
+                    block[i][j].setIsMark(false);
                 } else {
                     // 不是雷的格计算雷的数目
                     int mineNumber = 0;
@@ -44,8 +41,8 @@ public class LayMines {
                                 mineNumber++;
                         }
                     }
-                    block[i][j].setIsOpened(false);
-                    block[i][j].setIsMarked(false);
+                    block[i][j].setIsOpen(false);
+                    block[i][j].setIsMark(false);
                     block[i][j].setName("" + mineNumber);
                     block[i][j].setAroundMineNumber(mineNumber);
                 }
