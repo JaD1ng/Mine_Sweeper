@@ -11,17 +11,17 @@ import java.util.Hashtable;
 public class MineGame extends JFrame implements ActionListener {
     JMenuBar bar;
     JMenu fileMenu1, fileMenu2;
-    JMenuItem 初级, 中级, 高级, 自定义, 扫雷榜;
-    JMenuItem 介绍, 玩法;
+    JMenuItem junior, middle, senior, custom, record;
+    JMenuItem introduction, gamePlay;
     MineArea mineArea = null;
-    File 英雄榜 = new File("英雄榜.txt");
+    File Record = new File("Record.txt");
     Hashtable hashtable = null;
     ShowRecord showHeroRecord = null;
     JDialog set = null;
     JPanel panel, panel1, panel2, panel3, panel4;
     JLabel label, label1, label2, label3;
     JTextField row = null, column = null, mine = null;
-    JButton 确认, 取消;
+    JButton confirm, cancel;
     JDialog introduce = null, play = null;
     JLabel label4, label5;
 
@@ -30,38 +30,38 @@ public class MineGame extends JFrame implements ActionListener {
         add(mineArea, BorderLayout.CENTER); // 边框布局
         bar = new JMenuBar();
         fileMenu1 = new JMenu("游戏");
-        初级 = new JMenuItem("初级");
-        中级 = new JMenuItem("中级");
-        高级 = new JMenuItem("高级");
-        自定义 = new JMenuItem("自定义");
-        扫雷榜 = new JMenuItem("扫雷榜");
-        fileMenu1.add(初级);
-        fileMenu1.add(中级);
-        fileMenu1.add(高级);
-        fileMenu1.add(自定义);
-        fileMenu1.add(扫雷榜);
+        junior = new JMenuItem("初级");
+        middle = new JMenuItem("中级");
+        senior = new JMenuItem("高级");
+        custom = new JMenuItem("自定义");
+        record = new JMenuItem("扫雷榜");
+        fileMenu1.add(junior);
+        fileMenu1.add(middle);
+        fileMenu1.add(senior);
+        fileMenu1.add(custom);
+        fileMenu1.add(record);
         fileMenu2 = new JMenu("帮助");
-        介绍 = new JMenuItem("介绍");
-        玩法 = new JMenuItem("玩法");
-        fileMenu2.add(介绍);
-        fileMenu2.add(玩法);
+        introduction = new JMenuItem("介绍");
+        gamePlay = new JMenuItem("玩法");
+        fileMenu2.add(introduction);
+        fileMenu2.add(gamePlay);
         bar.add(fileMenu1);
         bar.add(fileMenu2);
         setJMenuBar(bar); // 设置窗体的菜单栏
-        初级.addActionListener(this);
-        中级.addActionListener(this);
-        高级.addActionListener(this);
-        自定义.addActionListener(this);
-        扫雷榜.addActionListener(this);
-        介绍.addActionListener(this);
-        玩法.addActionListener(this);
+        junior.addActionListener(this);
+        middle.addActionListener(this);
+        senior.addActionListener(this);
+        custom.addActionListener(this);
+        record.addActionListener(this);
+        introduction.addActionListener(this);
+        gamePlay.addActionListener(this);
         hashtable = new Hashtable();
         hashtable.put("初级", "初级#" + 999 + "#匿名");
         hashtable.put("中级", "中级#" + 999 + "#匿名");
         hashtable.put("高级", "高级#" + 999 + "#匿名");
-        if (!英雄榜.exists()) {
+        if (!Record.exists()) {
             try {
-                FileOutputStream out = new FileOutputStream(英雄榜);
+                FileOutputStream out = new FileOutputStream(Record);
                 ObjectOutputStream objectOut = new ObjectOutputStream(out);
                 objectOut.writeObject(hashtable);
                 objectOut.close();
@@ -77,19 +77,19 @@ public class MineGame extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == 初级) {
+        if (e.getSource() == junior) {
             mineArea.initMineArea(9, 9, 10, 1);
             setBounds(300, 100, 270, 350);
         }
-        if (e.getSource() == 中级) {
+        if (e.getSource() == middle) {
             mineArea.initMineArea(16, 16, 40, 2);
             setBounds(300, 100, 480, 560);
         }
-        if (e.getSource() == 高级) {
+        if (e.getSource() == senior) {
             mineArea.initMineArea(16, 30, 99, 3);
             setBounds(100, 100, 900, 560);
         }
-        if (e.getSource() == 自定义) {
+        if (e.getSource() == custom) {
             set = new JDialog();
             set.setTitle("自定义难度");
             set.setBounds(300, 100, 300, 130);
@@ -112,18 +112,18 @@ public class MineGame extends JFrame implements ActionListener {
             column.setText("16");
             mine = new JTextField();
             mine.setText("40");
-            确认 = new JButton("确认");
-            确认.addActionListener(this);
-            取消 = new JButton("取消");
-            取消.addActionListener(this);
+            confirm = new JButton("确认");
+            confirm.addActionListener(this);
+            cancel = new JButton("取消");
+            cancel.addActionListener(this);
             panel1.add(label1);
             panel1.add(row);
             panel2.add(label2);
             panel2.add(column);
             panel3.add(label3);
             panel3.add(mine);
-            panel4.add(确认);
-            panel4.add(取消);
+            panel4.add(confirm);
+            panel4.add(cancel);
             panel.add(panel1);
             panel.add(panel2);
             panel.add(panel3);
@@ -132,11 +132,11 @@ public class MineGame extends JFrame implements ActionListener {
             set.add(panel4, BorderLayout.SOUTH);
             set.setVisible(true);
         }
-        if (e.getSource() == 扫雷榜) {
+        if (e.getSource() == record) {
             if (showHeroRecord != null)
                 showHeroRecord.setVisible(true);
         }
-        if (e.getSource() == 确认) {
+        if (e.getSource() == confirm) {
             int rowNum = Integer.parseInt(row.getText());
             int columnNum = Integer.parseInt(column.getText());
             int mineNum = Integer.parseInt(mine.getText());
@@ -157,10 +157,10 @@ public class MineGame extends JFrame implements ActionListener {
             setBounds(100, 100, columnNum * 30, rowNum * 30 + 80);
             set.setVisible(false);
         }
-        if (e.getSource() == 取消) {
+        if (e.getSource() == cancel) {
             set.setVisible(false);
         }
-        if (e.getSource() == 介绍) {
+        if (e.getSource() == introduction) {
             introduce = new JDialog();
             introduce.setTitle("扫雷介绍");
             introduce.setBounds(300, 100, 300, 300);
@@ -177,7 +177,7 @@ public class MineGame extends JFrame implements ActionListener {
             introduce.add(label4);
             introduce.setVisible(true);
         }
-        if (e.getSource() == 玩法) {
+        if (e.getSource() == gamePlay) {
             play = new JDialog();
             play.setTitle("游戏玩法");
             play.setBounds(300, 100, 300, 300);

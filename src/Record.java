@@ -13,26 +13,26 @@ public class Record extends JDialog implements ActionListener {
     String message = null;
     JTextField textName;
     JLabel label = null;
-    JButton 确定, 取消;
+    JButton confirm, cancel;
 
     public Record() {
         setTitle("记录你的成绩");
         setBounds(300, 300, 240, 160);
         setResizable(false); // 设置用户是否可以调整大小
         setModal(true); // 设置窗口模式为对话框模式
-        确定 = new JButton("确定");
-        取消 = new JButton("取消");
+        confirm = new JButton("确定");
+        cancel = new JButton("取消");
         textName = new JTextField(8);
         textName.setText("匿名");
-        确定.addActionListener(this);
-        取消.addActionListener(this);
+        confirm.addActionListener(this);
+        cancel.addActionListener(this);
         setLayout(new GridLayout(2, 1));
         label = new JLabel("您现在是...高手,输入您的大名上榜");
         add(label);
         JPanel p = new JPanel();
         p.add(textName);
-        p.add(确定);
-        p.add(取消);
+        p.add(confirm);
+        p.add(cancel);
         add(p);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
@@ -47,19 +47,19 @@ public class Record extends JDialog implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == 确定) {
+        if (e.getSource() == confirm) {
             message = grade + "#" + time + "#" + " " + textName.getText();
             key = grade;
             writeRecord(key, message);
             setVisible(false);
         }
-        if (e.getSource() == 取消) {
+        if (e.getSource() == cancel) {
             setVisible(false);
         }
     }
 
     public void writeRecord(String key, String message) {
-        File f = new File("英雄榜.txt");
+        File f = new File("Record.txt");
         try {
             // 取出原有记录，更新记录
             FileInputStream in = new FileInputStream(f);
