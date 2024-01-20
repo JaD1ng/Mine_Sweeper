@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class BlockView {
+public class BlockView extends JPanel {
     JLabel blockNameOrIcon; // 用来显示Block对象的name、number和mineIcon属性
     JButton blockCover; // 用来遮挡blockNameOrIcon.
     CardLayout card; // 卡片式布局，显示第一次添加的组件
@@ -60,7 +60,7 @@ public class BlockView {
     }
 
     public void seeBlockNameOrIcon() {
-        card.show(this, "view");
+        card.show(this, "view"); // 翻转到指定的组件
         validate();
     }
 
